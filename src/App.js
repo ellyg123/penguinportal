@@ -31,7 +31,7 @@ const opts = {
 
 
 // Constants
-const TWITTER_HANDLE = '_buildspace';
+const TWITTER_HANDLE = 'ginevra136';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const TEST_GIFS = [
     'https://media.giphy.com/media/psv1zrhPZM6WI/giphy.gif',
@@ -45,6 +45,7 @@ const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [gifList, setGifList] = useState([]);
+  const [partyMode, setPartyMode] = useState(false);
 
   // Actions
   const checkIfWalletIsConnected = async () => {
@@ -145,7 +146,7 @@ const renderNotConnectedContainer = () => (
       className="cta-button connect-wallet-button"
       onClick={connectWallet}
     >
-      Connect to Wallet
+      connect to wallet
     </button>
   );
 
@@ -171,7 +172,7 @@ const renderConnectedContainer = () => {
           onChange={onInputChange}
         />
         <button className="cta-button submit-gif-button" onClick={sendGif}>
-          Submit
+          submit
         </button>
         <div className="gif-grid">
 					{/* We use index as the key instead, also, the src is now item.gifLink */}
@@ -184,6 +185,16 @@ const renderConnectedContainer = () => {
       </div>
     )
   }
+}
+
+const handlePartyClick = () => {
+  return (setPartyMode(!partyMode))
+}
+
+
+
+const renderPartyMode = () => {
+  return (<p className="partyMode">nootnoootnootnootnootnoooootnoootnoootnootnoootnootnootnooooooootnooooootooooooooooooooooooo</p>)
 }
 
   // UseEffects
@@ -230,14 +241,17 @@ useEffect(() => {
 			{/* This was solely added for some styling fanciness */}
 			<div className={walletAddress ? 'authed-container' : 'container'}>
         <div className="header-container">
-          <p className="header">penguin portal</p>
+          
+          <p className="header">  penguin portal</p>
+          <p className="watermark">  penguin portal</p>
           <p className="sub-text">
-            send pingu's noots to the metaverse
-          </p>
+            send pingu's noots to the metaverse 
+          </p> 
           {/* Add the condition to show this only if we don't have a wallet address */}
           {!walletAddress && renderNotConnectedContainer()}
           {walletAddress && renderConnectedContainer()}
         </div>
+        <div className="party-mode-container">{partyMode === true ? renderPartyMode() : ""}</div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
@@ -245,7 +259,8 @@ useEffect(() => {
             href={TWITTER_LINK}
             target="_blank"
             rel="noreferrer"
-          >{`built on @${TWITTER_HANDLE}`}</a>
+          >{`built by @${TWITTER_HANDLE}`}</a>
+          <button className="party-mode-button" onClick={handlePartyClick}> party mode🥳</button>
         </div>
       </div>
     </div>
